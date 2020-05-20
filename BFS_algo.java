@@ -5,10 +5,9 @@ public class BFS_algo implements search_algo {
     tile goal;
     tile start;
     String path;
-    public BFS_algo(final tile start, final tile goal) {
-HashQueue<tile> b = new HashQueue<>();
-
-    }
+	public BFS_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
+		
+	}
 
 
     @Override
@@ -34,9 +33,4 @@ HashQueue<tile> b = new HashQueue<>();
 return null;
 	}
 
-
-	@Override
-	public void setParam(tile start, tile goal, boolean withOpen, boolean withTime, String[] Solution) {
-		// TODO Auto-generated method stub
-	}
 	}
