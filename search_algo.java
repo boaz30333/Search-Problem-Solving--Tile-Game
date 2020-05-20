@@ -1,10 +1,10 @@
 import javafx.collections.SetChangeListener;
 
 public interface search_algo {
-public Tile getStart();
-public Tile getGoal();
+public tile getStart();
+public tile getGoal();
 public Boolean getWithOpen();
 public String run(); 
-public setParam(Tile start, Tile goal ,boolean withOpen,boolean  )
+public void setParam(tile start, tile goal ,boolean withOpen,boolean withTime,String[] Solution);
     
 }

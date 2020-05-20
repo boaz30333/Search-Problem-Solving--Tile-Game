@@ -10,10 +10,10 @@ public class HashQueue<T> {
     HashMap<String,T> h_map = new HashMap<>();
 
 public boolean add(T e) {
-     T sucsses=h_map.put(e.toString(), e)
+     T sucsses=h_map.put(e.toString(), e);
     return (queue.add(e)&&sucsses!=null);
 }
-}
+
 
 public T peek() {
     return queue.peek();
@@ -38,7 +38,7 @@ public int size() {
 
     return queue.size();
 }
-public boolean in_hash(Tile t){
+public boolean in_hash(tile t){
     return h_map.containsKey(t.toString());
 }
 

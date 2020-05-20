@@ -5,11 +5,11 @@ import java.util.ArrayList;
  */
 import java.util.List;
 
-public interface Tile {
-    public Tile Parent();
+public interface tile {
+    public tile Parent();
     public double getCost();
 
-    public void setCost(double b);
+    public void setCost(int b);
 
     public void moveUp();
 
@@ -18,7 +18,9 @@ public interface Tile {
     public void moveRight();
 
     public void moveLeft();
-    public Tile copy();
+    public tile copy();
     public boolean equals(Object b);
     public String toString();
+	public Board getBoard();
+	public String getOp();
 }

@@ -2,23 +2,23 @@ import java.util.Hashtable;
 import java.util.Queue;
 
 public class BFS_algo implements search_algo {
-    Tile goal;
-    Tile start;
+    tile goal;
+    tile start;
     String path;
-    public BFS_algo(final Tile start, final Tile goal) {
-          Queue<Tile> lQueue = new Queue<Tile>;
-          Hashtable<String,Tile> b= new Hashtable<String,Tile>();
+    public BFS_algo(final tile start, final tile goal) {
+HashQueue<tile> b = new HashQueue<>();
+
     }
 
 
     @Override
-    public Tile getStart() {
+    public tile getStart() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Tile getGoal() {
+    public tile getGoal() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -31,5 +31,12 @@ public class BFS_algo implements search_algo {
 
     @Override
 	public String run() {
+return null;
+	}
 
+
+	@Override
+	public void setParam(tile start, tile goal, boolean withOpen, boolean withTime, String[] Solution) {
+		// TODO Auto-generated method stub
+	}
 	}
