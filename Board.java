@@ -1,33 +1,56 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import javafx.geometry.Point2D;
 public class Board{
-	Color_Cell[][] mat;
+	int[][] mat;
+	 HashMap<Integer, Color> color_cell = new HashMap<>();
 	Point2D empty_space;
-	public Board(    Color_Cell[][] mat,  Point2D empty_space) {
+	private Board(int[][] mat,  Point2D empty_space, HashMap<Integer, Color> color_cell) {
 		this.mat=mat;
 		this.empty_space=empty_space;
+		this.color_cell=color_cell;
 	}
-
-	public Board copy() {
-		Color_Cell[][] newmat = new Color_Cell[mat.length][mat[0].length] ;
-		for (int i=0;i<mat.length;i++) {
-			for (int j=0;i<mat[0].length;j++) {
-				newmat[i][j]= this.mat[i][j].copy();
+	public Board getArranged() {
+		int[][] arrange_board= new int[this.mat.length][this.mat[0].length];
+		for(int j =0;j<arrange_board.length;j++) {
+			for(int k=0; k<arrange_board[0].length;k++) {
+				if(j==arrange_board.length-1&&k==arrange_board[0].length-1) {
+					arrange_board[j][k]=-1;
+				}
+				else {
+					arrange_board[j][k]=(j)*(arrange_board[0].length)+(k+1);
+				}
 			}
 		}
-		return new Board(newmat,new Point2D(this.empty_space.getX(),this.empty_space.getY()));
+		return new Board(arrange_board,new Point2D(arrange_board.length-1,arrange_board[0].length-1),this.color_cell );
+	}
+	public Board copy() {
+		int[][] newmat = new int[mat.length][mat[0].length] ;
+		for (int i=0;i<mat.length;i++) {
+			for (int j=0;j<mat[0].length;j++) {
+				newmat[i][j]= mat[i][j];
+			}
+		}
+		return new Board(newmat,new Point2D(this.empty_space.getX(),this.empty_space.getY()),this.color_cell);
+	}
+	public Point2D getEmpty() {
+		return this.empty_space;
+	}
+	public void setEmpty(Point2D p) {
+		this.empty_space=p;
 	}
 	public String toString() {
+//		System.out.println(this.mat.length+"x"+this.mat[0].length);
 		StringBuilder string = new StringBuilder();
-		for (Color_Cell[] row : mat) {
+		for (int[] row : mat) {
 			string.append("\n |");
 			// Loop through all columns of current row 
-			for (Color_Cell x : row) {
-				string.append(x.num + "("+x.color+")");
-				if(x.num<10&&x.num>-1)  string.append(" ");
-				if(x.color==Color_Cell.Color.RED)  string.append("  ");
+			for (int x : row) {
+				string.append(x + "("+color_cell.get(x)+")");
+				if(x<10&&x>-1)  string.append(" ");
+				if(color_cell.get(x)==Color.RED)  string.append("  ");
 				string.append("|");
 			}
 		}
@@ -41,41 +64,38 @@ public class Board{
 		int n=Integer.parseInt(""+line[i].charAt(0));
 		int m = Integer.parseInt(""+line[i].charAt(2));
 
-		ArrayList<String> BlackCells = new ArrayList<>();
-		ArrayList<String> RedCells = new ArrayList<>();
 		i++;
 		String[] Black=line[i].substring(6).split(",");
 		for(int j=0;j<Black.length;j++) {
-			BlackCells.add(Black[j]);
+			if(!Black[j].equals(""))
+			color_cell.put(Integer.parseInt(Black[j]), Color.BLACK);
 		}
 		///////////////////////////////////////////////////i=5
 		i++;
 		String[] Red=line[i].substring(5).split(",");
 		for(int j=0;j<Red.length;j++) {
-			RedCells.add(Red[j]);
+			if(!Red[j].equals(""))
+			color_cell.put(Integer.parseInt(Red[j]), Color.RED);
 		}
 		//////////////////////////////////////////////////
 		i++;
 		String[] rowOrder;
-		int num;
-		Color_Cell.Color color;
-		mat= new Color_Cell[n][m];
+		mat= new int[n][m];
 		for(int j =0;j<n;j++) {
 			rowOrder= line[i+j].split(",");
 			for(int k=0; k<m;k++) {
 				if(rowOrder[k].equals("_")) {
-					num= -1;
-					color= Color_Cell.Color.EMPTY;
-					empty_space= new Point2D(j,k);
+					mat[j][k]= -1;
+					color_cell.put(-1, Color.EMPTY);
+					empty_space= new Point2D(k,j);
 				}
 				else {
-					num= Integer.parseInt(""+rowOrder[k]);
-					if(BlackCells.contains(rowOrder[k])) color= Color_Cell.Color.BLACK;
-					if(RedCells.contains(rowOrder[k])) color= Color_Cell.Color.RED;
-					else color= Color_Cell.Color.GREEN;		 
+					int num= Integer.parseInt(""+rowOrder[k]);
+					mat[j][k]= num;
+					if(!color_cell.containsKey(num)) 
+						color_cell.put(num, Color.GREEN);
 				}
 
-				mat[j][k]= new Color_Cell(color,num);
 			}
 		}
 	}

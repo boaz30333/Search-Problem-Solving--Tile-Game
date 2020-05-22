@@ -6,21 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface tile {
-    public tile Parent();
-    public double getCost();
+	public tile getParent();
+	public void setParent(tile parent);
 
-    public void setCost(int b);
+public boolean isVisited();
+	public int getCost();
 
-    public void moveUp();
+	public void setCost(int b);
 
-    public void moveDown();
-
-    public void moveRight();
-
-    public void moveLeft();
-    public tile copy();
-    public boolean equals(Object b);
-    public String toString();
 	public Board getBoard();
-	public String getOp();
+	
+	public String getNumOp();
+	public void setNumOp(String num_op);
+	
+	public tile move(int direction);
+
+	public tile copy();
+	
+	public boolean equals(Object b);
+	
+	public String toString();
+
+	public tile getArrangedTile();
+	public void visit();
+
 }

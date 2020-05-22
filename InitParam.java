@@ -13,11 +13,10 @@ public class InitParam
 		search_algo algo = null;
 		boolean with_time = false;
 		boolean with_open = false ;
-		Board colorBoard =null;
-
 		String[] info = new String[6]; // 1 = algo 2 = with time| 3 = opoen list| 4= size of board | 5= black |6=red 
 		String board="";
 		BufferedReader br = null;
+
 		try 
 		{
 			br = new BufferedReader(new FileReader("input.txt"));
@@ -37,8 +36,9 @@ public class InitParam
 			e.printStackTrace();
 			System.out.println("could not read file");
 		}
-		colorBoard= new Board(board);
-		/////////////////////////////////////////cont parse line 1
+		tile start= new ColorTile(new Board(board),0,null,""); 
+		tile goal = start.getArrangedTile();
+		//----------------------------------------------------------------------------------------cont parse line 1
 		int i=1;
 		switch(info[i]) {
 		case "with time":
@@ -52,7 +52,7 @@ public class InitParam
 			throw new Exception("no input with/no runtime");
 		}
 
-		/////////////////////////////////////////////////i=2
+		//---------------------------------------------------------------------------------------------------i=2
 		i++;
 		switch(info[i]) {
 		case "with open":
@@ -63,12 +63,13 @@ public class InitParam
 		default:
 			throw new Exception("no input : with/no open list");
 		}
-		//////////////////////////line 0 = choose algo
+		//---------------------------------------------------------------------------------------------------line 0 = choose algo
 		switch(info[0]) {
 		case "BFS":
+			algo = new BFS_algo(start, goal, with_open, with_time);
+			System.out.println(algo.run());
 			break;
 		case "DFID":
-			// code block
 			break;
 		case "DFBnB":
 			// code block
@@ -83,7 +84,8 @@ public class InitParam
 		default:
 			throw new Exception("no match algo in input file");
 		}
-System.out.println(colorBoard);
+System.out.println(start);
+
 	}
 
 	

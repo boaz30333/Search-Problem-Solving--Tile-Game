@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="BFS_algo" project="ProblemSolve" file="/ProblemSolve/src/BFS_algo.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="236" width="189" x="41" y="37"/>    
+    <position height="296" width="271" x="1461" y="299"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,62 +12,104 @@
   </class>  
   <class id="2" language="java" name="Board" project="ProblemSolve" file="/ProblemSolve/src/Board.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="116" width="185" x="330" y="453"/>    
+    <position height="276" width="349" x="-64" y="470"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="3" language="java" name="search_algo" project="ProblemSolve" file="/ProblemSolve/src/search_algo.java" 
+  <enumeration id="3" language="java" name="Color" project="ProblemSolve" file="/ProblemSolve/src/Color.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="176" width="249" x="41" y="453"/>    
+    <position height="176" width="171" x="307" y="559"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="4" language="java" name="ColorTile" project="ProblemSolve" file="/ProblemSolve/src/ColorTile.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="576" width="230" x="62" y="-147"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="InitParam" project="ProblemSolve" file="/ProblemSolve/src/InitParam.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="923" y="84"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="6" language="java" name="search_algo" project="ProblemSolve" file="/ProblemSolve/src/search_algo.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="189" x="1277" y="61"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="4" language="java" name="tile" project="ProblemSolve" file="/ProblemSolve/src/tile.java" binary="false" 
+  <interface id="7" language="java" name="tile" project="ProblemSolve" file="/ProblemSolve/src/tile.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="296" width="187" x="555" y="453"/>    
+    <position height="-1" width="-1" x="848" y="463"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="ColorTile" project="ProblemSolve" file="/ProblemSolve/src/ColorTile.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="376" width="187" x="555" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <realization id="6">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="7">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="8" name="parent"/>      
-      <multiplicity id="9" minimum="0" maximum="1"/>    
+  <association id="8">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="9" name="parent"/>      
+      <multiplicity id="10" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="10">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="3"/>  
+  <realization id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
   </realization>  
-  <association id="11">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="12" name="board"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
+  <association id="12">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="13" name="goal"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="15">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <association id="16">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="17" name="board"/>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="19">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="20" name="color_cell"/>      
+      <multiplicity id="21" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="22">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="23" name="start"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
