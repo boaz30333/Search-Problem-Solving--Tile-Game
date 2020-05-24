@@ -55,72 +55,20 @@ public class ColorTile implements tile {
 		return this.parent;
 	}
 
-	public tile moveUp() {
-		int x =(int) this.board.getEmpty().getX();
-		int y = (int) this.board.getEmpty().getY();
-		if(y==0||this.board.color_cell.get(this.getBoard().mat[y-1][x])==Color.BLACK||this.getNumOp().contains("U")) return null;
+	public tile move(int x_src,int y_src,int x_dest,int y_dest, String direction ) {
 		tile newTile=this.copy();
-		newTile.getBoard().mat[y][x]=newTile.getBoard().mat[y-1][x];
-		newTile.getBoard().mat[y-1][x]=-1;
+		newTile.getBoard().mat[y_src][x_src]=newTile.getBoard().mat[y_dest][x_dest];
+		newTile.getBoard().mat[y_dest][x_dest]=-1;
 		int cost=1;
-		if(this.board.color_cell.get(newTile.getBoard().mat[y][x])==Color.RED) cost=30;
+		if(this.board.color_cell.get(newTile.getBoard().mat[y_src][x_src])==Color.RED) cost=30;
 		newTile.setCost(cost+this.getCost());
-		newTile.setNumOp(newTile.getBoard().mat[y][x]+"D");
-		newTile.getBoard().setEmpty(new Point2D(x, y-1));
+		newTile.setNumOp(newTile.getBoard().mat[y_src][x_src]+direction);
+		newTile.getBoard().setEmpty(new Point2D(x_dest, y_dest));
 		newTile.setParent(this);
 		return newTile;
 	}
 
-	public tile moveDown() {
-		// TODO Auto-generated method stub
-		int x =(int) this.board.getEmpty().getX();
-		int y = (int) this.board.getEmpty().getY();
-		if(y==board.mat.length-1||this.board.color_cell.get(this.getBoard().mat[y+1][x])==Color.BLACK||this.getNumOp().contains("D")) return null;
-		tile newTile=this.copy();
-		newTile.getBoard().mat[y][x]=newTile.getBoard().mat[y+1][x];
-		newTile.getBoard().mat[y+1][x]=-1;
-		int cost=1;
-		if(this.board.color_cell.get(newTile.getBoard().mat[y][x])==Color.RED) cost=30;
-		newTile.setCost(cost+this.getCost());
-		newTile.setNumOp(newTile.getBoard().mat[y][x]+"U");
-		newTile.getBoard().setEmpty(new Point2D(x, y+1));
-		newTile.setParent(this);
-		return newTile;
-	}
 
-	public tile moveRight() {
-		// TODO Auto-generated method stub
-		int x =(int) this.board.getEmpty().getX();
-		int y = (int) this.board.getEmpty().getY();
-		if(x==board.mat[0].length-1||this.board.color_cell.get(this.getBoard().mat[y][x+1])==Color.BLACK||this.getNumOp().contains("R")) return null;
-		tile newTile=this.copy();
-		newTile.getBoard().mat[y][x]=newTile.getBoard().mat[y][x+1];
-		newTile.getBoard().mat[y][x+1]=-1;
-		int cost=1;
-		if(this.board.color_cell.get(newTile.getBoard().mat[y][x])==Color.RED) cost=30;
-		newTile.setCost(cost+this.getCost());
-		newTile.setNumOp(newTile.getBoard().mat[y][x]+"L");
-		newTile.getBoard().setEmpty(new Point2D(x+1, y));
-		newTile.setParent(this);
-		return newTile;
-	}
-
-	public tile moveLeft() {
-		// TODO Auto-generated method stub
-		int x =(int) this.board.getEmpty().getX();
-		int y = (int) this.board.getEmpty().getY();
-		if(x==0||this.board.color_cell.get(this.getBoard().mat[y][x-1])==Color.BLACK||this.getNumOp().contains("U")) return null;
-		tile newTile=this.copy();
-		newTile.getBoard().mat[y][x]=newTile.getBoard().mat[y][x-1];
-		newTile.getBoard().mat[y][x-1]=-1;
-		int cost=1;
-		if(this.board.color_cell.get(newTile.getBoard().mat[y][x])==Color.RED) cost=30;
-		newTile.setCost(cost+this.getCost());
-		newTile.setNumOp(newTile.getBoard().mat[y][x]+"R");
-		newTile.getBoard().setEmpty(new Point2D(x-1, y));
-		newTile.setParent(this);
-		return newTile;
-	}
 
 	@Override
 	public tile copy() {
@@ -159,11 +107,27 @@ public class ColorTile implements tile {
 
 	@Override
 	public tile move(int direction) {
+		int x =(int) this.board.getEmpty().getX();
+		int y = (int) this.board.getEmpty().getY();
 		// TODO Auto-generated method stub
-		if (direction==3) return moveLeft();
-		else if(direction==4) return moveUp();
-		else if(direction==1) return moveRight();
-		else return moveDown();
+		 if(direction==1) {
+			if(x==board.mat[0].length-1||this.board.color_cell.get(this.getBoard().mat[y][x+1])==Color.BLACK||this.getNumOp().contains("R")) return null;
+			return move(x,y,x+1,y,"L");
+		} 
+		 else if(direction==2)	{
+			 if(y==board.mat.length-1||this.board.color_cell.get(this.getBoard().mat[y+1][x])==Color.BLACK||this.getNumOp().contains("D")) return null;
+			return move(x,y,x,y+1,"D");
+		}
+		else if(direction==3) {
+			if(x==0||this.board.color_cell.get(this.getBoard().mat[y][x-1])==Color.BLACK||this.getNumOp().contains("L")) return null;
+			return move(x,y,x-1,y,"R");
+		}
+		else{
+			if(y==0||this.board.color_cell.get(this.getBoard().mat[y-1][x])==Color.BLACK||this.getNumOp().contains("U")) return null;
+			return move(x,y,x,y-1,"D");
+		}
+
+
 	}
 
 	@Override

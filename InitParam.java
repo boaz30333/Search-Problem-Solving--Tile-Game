@@ -14,18 +14,18 @@ public class InitParam
 		boolean with_time = false;
 		boolean with_open = false ;
 		String[] info = new String[6]; // 1 = algo 2 = with time| 3 = opoen list| 4= size of board | 5= black |6=red 
-		String board="";
 		BufferedReader br = null;
-
+		String board="";
 		try 
 		{
 			br = new BufferedReader(new FileReader("input.txt"));
 			int i=0;
-			while (i<3&&( info[i] = br.readLine()) != null) 
+			while (i<3&&( info[i] = br.readLine()) != null)  // with time, with open , algorithm name
 			{
 				i++;
 			}
-			while (br.ready()) 
+			
+			while (br.ready())                         // board initialize
 			{
 				board+= br.readLine();
 				board+=System.getProperty("line.separator");
@@ -36,9 +36,9 @@ public class InitParam
 			e.printStackTrace();
 			System.out.println("could not read file");
 		}
-		tile start= new ColorTile(new Board(board),0,null,""); 
+		tile start= new ColorTile(new Board(board),0,null,"");  // build start and goal state's tile
 		tile goal = start.getArrangedTile();
-		//----------------------------------------------------------------------------------------cont parse line 1
+		//-------------------------------------------------------------- line 1 choose with  time
 		int i=1;
 		switch(info[i]) {
 		case "with time":
@@ -52,7 +52,7 @@ public class InitParam
 			throw new Exception("no input with/no runtime");
 		}
 
-		//---------------------------------------------------------------------------------------------------i=2
+		//---------------------------------------------------------------line=2 choose with open
 		i++;
 		switch(info[i]) {
 		case "with open":
@@ -63,7 +63,7 @@ public class InitParam
 		default:
 			throw new Exception("no input : with/no open list");
 		}
-		//---------------------------------------------------------------------------------------------------line 0 = choose algo
+		//-------------------------------------------------------------------line 0 = choose algo
 		switch(info[0]) {
 		case "BFS":
 			algo = new BFS_algo(start, goal, with_open, with_time);
@@ -84,7 +84,6 @@ public class InitParam
 		default:
 			throw new Exception("no match algo in input file");
 		}
-System.out.println(start);
 
 	}
 

@@ -44,15 +44,21 @@ public class Board{
 	public String toString() {
 //		System.out.println(this.mat.length+"x"+this.mat[0].length);
 		StringBuilder string = new StringBuilder();
-		for (int[] row : mat) {
-			string.append("\n |");
-			// Loop through all columns of current row 
-			for (int x : row) {
-				string.append(x + "("+color_cell.get(x)+")");
-				if(x<10&&x>-1)  string.append(" ");
-				if(color_cell.get(x)==Color.RED)  string.append("  ");
-				string.append("|");
+//		for (int[] row : mat) {
+//			string.append("\n |");
+//			// Loop through all columns of current row 
+//			for (int x : row) {
+//				string.append(x + "("+color_cell.get(x)+")");
+//				if(x<10&&x>-1)  string.append(" ");
+//				if(color_cell.get(x)==Color.RED)  string.append("  ");
+//				string.append("|");
+//			}
+//		}
+		for(int i=0;i<mat.length;i++) {
+			for(int j=0;j<mat[0].length;j++) {
+				string.append(mat[i][j]+" ");
 			}
+			string.append("\n");
 		}
 		return string.toString();
 	}

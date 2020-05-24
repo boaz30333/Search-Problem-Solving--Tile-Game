@@ -1,53 +1,42 @@
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 
-public class BFS_algo implements search_algo {
-    tile goal;
-    tile start;
-    String path;
-    boolean withOpen;
-    boolean withTime;
-	public BFS_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
-		this.start=start;
-		this.goal=goal;
-		this.withOpen=withOpen;
-		this.withTime=withTime;
+public class BFS_algo extends search_algo{
+//	HashQueueTile cl= new HashQueueTile(); //queue for open and closed list both C and L from pseudo-code
+	HashMap<String, tile> closelist= new HashMap<>();
+	LinkedHashMap<String, tile> frontier= openlist;
+    public BFS_algo(tile start, tile goal, boolean with_open, boolean with_time) {
+		// TODO Auto-generated constructor stub
+    	super(start,goal,with_open,with_time);
 	}
-
-
-    @Override
-    public tile getStart() {
-        // TODO Auto-generated method stub
-        return start;
-    }
-
-    @Override
-    public tile getGoal() {
-        // TODO Auto-generated method stub
-        return goal;
-    }
-
-    @Override
-    public Boolean getWithOpen() {
-        // TODO Auto-generated method stub
-        return withOpen;
-    }
-
-    @Override
+	@Override
 	public String run() {
     	long startTime = System.nanoTime();
-    	HashQueueTile cl= new HashQueueTile(); //queue for open and closed list both C and L from pseudo-code
-    	cl.add(start.toString(), start);
-    	while(cl.peek()!=null) {
-    		tile n=cl.poll();
+//    	cl.add(start.toString(), start);1
+//    	openlist.put(start.toString(), start);2
+    	frontier.put(start.toString(),start);
+    	
+//    	while(cl.peek()!=null) {1
+//    		tile n=cl.poll();1
+    	while(!frontier.isEmpty()) {
+		tile n=frontier.remove(frontier.keySet().toArray()[0]);
+		
+//			openlist.remove(n.toString());2
+    		closelist.put(n.toString(), n);
     		for(int i=1;i<5;i++) {
     			tile child= n.move(i);
-    			if(child!=null&&!cl.in_hash(child)) {
+    			if(child!=null&&!closelist.containsKey(child.toString())) {
     				if(child.equals(goal))
     					return path(child)+"\n\rNum : "+ColorTile.count+"\r Cost: "+child.getCost()+"\rTime: "+(System.nanoTime()-startTime);
-    				cl.add(child.toString(), child);
+//    				cl.add(child.toString(), child); 1
+//    				frontier.add(child);2
+    				frontier.put(child.toString(), child);
+//    				openlist.put(child.toString(), child);	2	
+//    				PrintOpenList();
     			}
     		}
     	}
@@ -57,17 +46,5 @@ public class BFS_algo implements search_algo {
     		return null;
 	}
 
-
-	private String path(tile child) {
-		// TODO Auto-generated method stub
-String path="";
-	tile current= child;
-		while(current.getParent()!=null&&current.getParent().getParent()!=null) {
-		path=	"-"+current.getNumOp()+path;
-		current=current.getParent();
-		}
-		path=current.getNumOp()+path;
-		return path;
-	}
 
 	}
