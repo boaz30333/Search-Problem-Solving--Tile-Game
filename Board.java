@@ -1,11 +1,10 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import javafx.geometry.Point2D;
+
 public class Board{
 	int[][] mat;
-	 HashMap<Integer, Color> color_cell = new HashMap<>();
+	HashMap<Integer, Color> color_cell = new HashMap<>();
 	Point2D empty_space;
 	private Board(int[][] mat,  Point2D empty_space, HashMap<Integer, Color> color_cell) {
 		this.mat=mat;
@@ -42,48 +41,48 @@ public class Board{
 		this.empty_space=p;
 	}
 	public String toString() {
-//		System.out.println(this.mat.length+"x"+this.mat[0].length);
 		StringBuilder string = new StringBuilder();
-//		for (int[] row : mat) {
-//			string.append("\n |");
-//			// Loop through all columns of current row 
-//			for (int x : row) {
-//				string.append(x + "("+color_cell.get(x)+")");
-//				if(x<10&&x>-1)  string.append(" ");
-//				if(color_cell.get(x)==Color.RED)  string.append("  ");
-//				string.append("|");
-//			}
-//		}
 		for(int i=0;i<mat.length;i++) {
 			for(int j=0;j<mat[0].length;j++) {
-				string.append(mat[i][j]+" ");
+				string.append(mat[i][j]);
+				string.append(' ');
 			}
 			string.append("\n");
 		}
 		return string.toString();
 	}
-
+/**
+ * 
+ * @param board A String represent a board with 3 colors
+ * 3x4 - line 0 - size of the board
+Black:   line 1 - the pieces in black color
+Red: 11  line 2 - the pieces in red color
+1,2,3,4  the arrange of the board where '-' is the empty cell
+5,6,11,7
+9,10,8,_
+ * @throws Exception if the input not satisfy the requirements
+ */
 	public Board(String board) throws Exception {
 		if(board==null||board.length()<4) throw new Exception("cant build board from string");
 		String[] line = board.split(System.getProperty("line.separator"));
 		int i=0;
 		int n=Integer.parseInt(""+line[i].charAt(0));
 		int m = Integer.parseInt(""+line[i].charAt(2));
-
+///////////////////////////////////////////////////////////line 1
 		i++;
-		String[] Black=line[i].substring(6).split(",");
+		String[] Black=line[i].replaceAll("\\s", "").substring(6).split(",");
 		for(int j=0;j<Black.length;j++) {
 			if(!Black[j].equals(""))
-			color_cell.put(Integer.parseInt(Black[j]), Color.BLACK);
+				color_cell.put(Integer.parseInt(Black[j]), Color.BLACK);
 		}
-		///////////////////////////////////////////////////i=5
+		///////////////////////////////////////////////////line 2
 		i++;
-		String[] Red=line[i].substring(5).split(",");
+		String[] Red=line[i].replaceAll("\\s", "").substring(4).split(",");
 		for(int j=0;j<Red.length;j++) {
 			if(!Red[j].equals(""))
-			color_cell.put(Integer.parseInt(Red[j]), Color.RED);
+				color_cell.put(Integer.parseInt(Red[j]), Color.RED);
 		}
-		//////////////////////////////////////////////////
+		//////////////////////////////////////////////////line 3 - board length
 		i++;
 		String[] rowOrder;
 		mat= new int[n][m];

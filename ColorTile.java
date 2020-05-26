@@ -9,13 +9,14 @@ public class ColorTile implements tile {
     private int cost=0; // how much cost to develop this state
 	private tile parent=null;
 	private String num_op;
-	boolean _isVisited=false;
+	public boolean _isVisited=false;
 	public static int count=0;
 	public ColorTile(Board board,int cost,tile parent, String num_op) {
         this.board=board;
 		this.cost=cost;
 		this.parent=parent;
 		this.num_op=num_op;
+		this._isVisited=false;
 		count++;
     } 
 
@@ -60,7 +61,8 @@ public class ColorTile implements tile {
 		newTile.getBoard().mat[y_src][x_src]=newTile.getBoard().mat[y_dest][x_dest];
 		newTile.getBoard().mat[y_dest][x_dest]=-1;
 		int cost=1;
-		if(this.board.color_cell.get(newTile.getBoard().mat[y_src][x_src])==Color.RED) cost=30;
+		if(this.board.color_cell.get(newTile.getBoard().mat[y_src][x_src])==Color.RED) 
+			cost=30;
 		newTile.setCost(cost+this.getCost());
 		newTile.setNumOp(newTile.getBoard().mat[y_src][x_src]+direction);
 		newTile.getBoard().setEmpty(new Point2D(x_dest, y_dest));
@@ -116,7 +118,7 @@ public class ColorTile implements tile {
 		} 
 		 else if(direction==2)	{
 			 if(y==board.mat.length-1||this.board.color_cell.get(this.getBoard().mat[y+1][x])==Color.BLACK||this.getNumOp().contains("D")) return null;
-			return move(x,y,x,y+1,"D");
+			return move(x,y,x,y+1,"U");
 		}
 		else if(direction==3) {
 			if(x==0||this.board.color_cell.get(this.getBoard().mat[y][x-1])==Color.BLACK||this.getNumOp().contains("L")) return null;

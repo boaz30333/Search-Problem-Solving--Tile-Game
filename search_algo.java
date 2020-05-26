@@ -5,43 +5,39 @@ import java.util.LinkedHashMap;
 import javafx.collections.SetChangeListener;
 
 public abstract class search_algo {
-tile goal;
-tile start;
-boolean withOpen;
-boolean withTime;
-String path;
-LinkedHashMap<String, tile> openlist= new LinkedHashMap();
-public search_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
-	this.start=start;
-	this.goal=goal;
-	this.withOpen=withOpen;
-	this.withTime=withTime;
-}
-protected String path(tile child) {
-	// TODO Auto-generated method stub
-String path="";
-tile current= child;
-	while(current.getParent()!=null&&current.getParent().getParent()!=null) {
-	path=	"-"+current.getNumOp()+path;
-	current=current.getParent();
+	tile goal;
+	tile start;
+	boolean withOpen;
+	boolean withTime;
+	String path;
+	LinkedHashMap<String, tile> openlist= new LinkedHashMap<String, tile>();
+	public search_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
+		this.start=start;
+		this.goal=goal;
+		this.withOpen=withOpen;
+		this.withTime=withTime;
 	}
-	path=current.getNumOp()+path;
-	return path;
-}
+	protected String path(tile child) {
+		String path="";
+		tile current= child;
+		while(current.getParent()!=null&&current.getParent().getParent()!=null) {
+			path=	"-"+current.getNumOp()+path;
+			current=current.getParent();
+		}
+		path=current.getNumOp()+path;
+		return path;
+	}
 	public void PrintOpenList() {
-		// TODO Auto-generated method stub
-//	Iterator<tile> b=	cl.h_queue.values().iterator();
+		StringBuilder string = new StringBuilder();
 		Iterator<tile> b=openlist.values().iterator();
-	tile current=null;
-	int count=0;
-	while(b.hasNext()) {
-		current=b.next();
-//		if(!current.isVisited()) {
-		System.out.println(count+"\t "+current+"\n---------------------------");
-		count++;
+		tile current=null;
+		while(b.hasNext()) {
+			current=b.next();
+			string.append("\n"+current+"____________________");
+		}
+		string.append("\n------------------------------------------------------------");
+		System.out.println(string);
 	}
-	 System.out.println("\n--------------------------------------------------------------------------------------------");
-	}
-public abstract String run(); 
+	public abstract String run(); 
 
 }

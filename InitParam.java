@@ -20,7 +20,7 @@ public class InitParam
 		{
 			br = new BufferedReader(new FileReader("input.txt"));
 			int i=0;
-			while (i<3&&( info[i] = br.readLine()) != null)  // with time, with open , algorithm name
+			while (i<3&&( info[i] = br.readLine()) != null)  // with time, with open , algorithm name initialize
 			{
 				i++;
 			}
@@ -67,24 +67,24 @@ public class InitParam
 		switch(info[0]) {
 		case "BFS":
 			algo = new BFS_algo(start, goal, with_open, with_time);
-			System.out.println(algo.run());
 			break;
 		case "DFID":
+			algo = new DFID_algo(start, goal, with_open, with_time);
 			break;
 		case "DFBnB":
 			// code block
 			break;
 		case "A*":
-			// code block
+			algo = new A_star_algo(start, goal, with_open, with_time);
 			break;
 		case "IDA*":
-			// code block
+			algo = new IDA_star_algo(start, goal, with_open, with_time);
 			break;
 
 		default:
 			throw new Exception("no match algo in input file");
 		}
-
+		System.out.println(algo.run());
 	}
 
 	
