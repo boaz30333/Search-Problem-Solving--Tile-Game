@@ -1,34 +1,39 @@
 
 public class DFID_algo extends search_algo{
-String result;
-int depth=1;
-boolean isCutoff=false;
-long startTime;
+	String result="";
+	int depth=1;
+	boolean isCutoff=false;
 	public DFID_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
 		super(start, goal, withOpen, withTime);
 	}
 
-	
+
 	@Override
-	public String run() {
+	public void run() {
 		// TODO Auto-generated method stub
-		startTime=System.nanoTime();
+		StartTime = System.nanoTime();
 		while(depth<6) {
 			openlist.clear();
 			result= Limited_DFS(start,goal,depth);
-			if(!result.equals("cutoff")&&!result.equals("fail"))return result;
+			if(!result.equals("cutoff")&&!result.equals("fail")) {
+				saveToFile();
+				return;
+			}
 			else if(result.equals("fail")) break;
 			depth++;
 		}
-		return "no path\n"+"Num: "+ColorTile.count;
-
+		count=ColorTile.count;
+		saveToFile();
 	}
 
 
 	private String Limited_DFS(tile state, tile goal, int limit) {
-		if(state.equals(goal)) 
-			return path(state)+"\rNum : "+ColorTile.count+"\rCost: "+state.getCost()+"\rTime: "+
-			String.format("%.3f",(System.nanoTime()-startTime)*Math.pow(10, -9))+" seconds";
+		if(state.equals(goal)) {
+			path=path(state);
+			count=ColorTile.count;
+			cost =state.getCost();
+			return path;
+		}
 		else if(limit==0)return "cutoff";
 		else {
 			openlist.put(state.toString(), state);
@@ -40,11 +45,11 @@ long startTime;
 					if(result.equals("cutoff")) isCutoff=true;
 					else if(!result.equals("fail")) return result;
 				}}
-					openlist.remove(state.toString());
-					if(isCutoff) return "cutoff";
-					else return "fail";
-				}
-			}
+			openlist.remove(state.toString());
+			if(isCutoff) return "cutoff";
+			else return "fail";
 		}
-	
-	
+	}
+}
+
+

@@ -9,10 +9,12 @@ import javafx.geometry.Point2D;
 
 public class InitParam
 {
+	public static boolean with_time=false;
+	public static boolean with_open=false;
+	public static search_algo algo;
+	public static tile start;
+	public static tile goal;
 	public static void main(String[] args) throws Exception {
-		search_algo algo = null;
-		boolean with_time = false;
-		boolean with_open = false ;
 		String[] info = new String[6]; // 1 = algo 2 = with time| 3 = opoen list| 4= size of board | 5= black |6=red 
 		BufferedReader br = null;
 		String board="";
@@ -24,7 +26,6 @@ public class InitParam
 			{
 				i++;
 			}
-			
 			while (br.ready())                         // board initialize
 			{
 				board+= br.readLine();
@@ -36,56 +37,64 @@ public class InitParam
 			e.printStackTrace();
 			System.out.println("could not read file");
 		}
-		tile start= new ColorTile(new Board(board),0,null,"");  // build start and goal state's tile
-		tile goal = start.getArrangedTile();
-		//-------------------------------------------------------------- line 1 choose with  time
-		int i=1;
-		switch(info[i]) {
+		start= InitStart(board);
+		goal = start.getArrangedTile();
+		with_time=initWithTime(info[1]);
+		with_open=initWithOpen(info[2]);
+		algo= initAlgo(info[0]);
+
+		algo.run();
+	}
+
+	public static search_algo initAlgo(String algorithm) throws Exception {
+		switch(algorithm) {
+		case "BFS":
+			return new BFS_algo(start, goal, with_open, with_time);
+
+		case "DFID":
+			return new DFID_algo(start, goal, with_open, with_time);
+		case "DFBnB":
+			return new DFBnB_algo(start, goal, with_open, with_time);
+		case "A*":
+			return new A_star_algo(start, goal, with_open, with_time);
+		case "IDA*":
+			return new IDA_star_algo(start, goal, with_open, with_time);
+
+		default:
+			throw new Exception("no match algo in input file");
+		}
+
+	}
+	public static boolean initWithTime(String time) throws Exception {
+		switch(time) {
 		case "with time":
-			with_time=true;
-			break;
+			return true;
 		case "no time":
-			break;
+			return false;
 
 
 		default:
 			throw new Exception("no input with/no runtime");
 		}
 
-		//---------------------------------------------------------------line=2 choose with open
-		i++;
-		switch(info[i]) {
+
+	}
+	public static boolean initWithOpen(String open) throws Exception {
+		switch(open) {
 		case "with open":
-			with_open=true;
-			break;
+			return true;
 		case "no open":
-			break;
+			return false;
 		default:
 			throw new Exception("no input : with/no open list");
 		}
-		//-------------------------------------------------------------------line 0 = choose algo
-		switch(info[0]) {
-		case "BFS":
-			algo = new BFS_algo(start, goal, with_open, with_time);
-			break;
-		case "DFID":
-			algo = new DFID_algo(start, goal, with_open, with_time);
-			break;
-		case "DFBnB":
-			algo = new DFBnB_algo(start, goal, with_open, with_time);
-			break;
-		case "A*":
-			algo = new A_star_algo(start, goal, with_open, with_time);
-			break;
-		case "IDA*":
-			algo = new IDA_star_algo(start, goal, with_open, with_time);
-			break;
+		//
 
-		default:
-			throw new Exception("no match algo in input file");
-		}
-		System.out.println(algo.run());
+	}
+	public static tile InitStart(String board) throws Exception {
+		return new ColorTile(new Board(board),0,null,"");  // build start and goal state's tile
 	}
 
-	
-	}
+
+
+}

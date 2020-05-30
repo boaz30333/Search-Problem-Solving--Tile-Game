@@ -16,9 +16,9 @@ public class IDA_star_algo extends heuristic_search_algo {
 	}
 
 	@Override
-	public String run() {
+	public void run() {
 		// TODO Auto-generated method stub
-		long startTime = System.nanoTime();
+		StartTime = System.nanoTime();
 
 		t= heuristic(start);
 		while(t!=Integer.MAX_VALUE) {
@@ -35,20 +35,25 @@ public class IDA_star_algo extends heuristic_search_algo {
 						tile child= n.move(i);
 						if(child!=null) {
 							if((heuristic(child)+child.getCost())>t) {
-								minF= Math.min(minF,(heuristic(child)+child.getCost()));
+								minF= Math.min(minF,f(child));
 								continue;
 							}
 							if(openlist.containsKey(child.toString())&&(openlist.get(child.toString()).isVisited())) 
 								continue;
 							if (openlist.containsKey(child.toString())&&!(openlist.get(child.toString()).isVisited()) ){
-								if(heuristic(child)+child.getCost()<openlist.get(child.toString()).getCost()+heuristic(openlist.get(child.toString()))) {
+								if(f(child)<f(openlist.get(child.toString()))) {
 									stack.remove(openlist.get(child.toString()));
 									openlist.remove(child.toString());
 								}
 								else continue;
 							}
-							if(child.equals(goal)) return path(child)+"\rNum : "+ColorTile.count+"\rCost: "+child.getCost()+"\rTime: "+
-									String.format("%.3f",(System.nanoTime()-startTime)*Math.pow(10, -9))+" seconds";;
+							if(child.equals(goal)) {
+								path=path(child);
+								count=ColorTile.count;
+								cost =child.getCost();
+								saveToFile();
+
+							}
 							openlist.put(child.toString(), child);
 							stack.push(child);
 						}
@@ -59,6 +64,7 @@ public class IDA_star_algo extends heuristic_search_algo {
 			t=minF;
 
 		}
-		return "false";
+		count=ColorTile.count;
+		saveToFile();
 	}
 }

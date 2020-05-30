@@ -12,8 +12,8 @@ public class BFS_algo extends search_algo{
 		super(start,goal,with_open,with_time);
 	}
 	@Override
-	public String run() {
-		long startTime = System.nanoTime();
+	public void run() {
+		StartTime = System.nanoTime();
 		frontier.put(start.toString(),start);
 		while(!frontier.isEmpty()) {
 			tile n=frontier.remove(frontier.keySet().toArray()[0]);
@@ -21,16 +21,21 @@ public class BFS_algo extends search_algo{
 			for(int i=1;i<5;i++) {
 				tile child= n.move(i);
 				if(child!=null&&!closelist.containsKey(child.toString())) {
-					if(child.equals(goal))
-						return path(child)+"\rNum : "+ColorTile.count+"\rCost: "+child.getCost()+"\rTime: "+
-						String.format("%.3f",(System.nanoTime()-startTime)*Math.pow(10, -9))+" seconds";
+					if(child.equals(goal)) {
+						path=path(child);
+						count=ColorTile.count;
+						cost =child.getCost();
+						saveToFile();
+						return;
+					}
 					frontier.put(child.toString(), child);
 					if(withOpen)PrintOpenList();
 				}
 			}
 		}
-		
-		return "no path\n"+"Num: "+ColorTile.count;
+
+		count=ColorTile.count;
+		saveToFile();
 	}
 
 

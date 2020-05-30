@@ -12,7 +12,7 @@ public class DFBnB_algo extends heuristic_search_algo {
 	PriorityQueue<tile> PQ= new PriorityQueue<>(new Comparator<tile>() {
 		@Override
 		public int compare(tile arg0, tile arg1) {
-			int x= (heuristic(arg0)+arg0.getCost())-(heuristic(arg1)+arg1.getCost());
+			int x= (f(arg0)-f(arg1));
 			if(x!=0) return x;
 			else return arg0.getTime()-arg1.getTime();
 		}
@@ -29,8 +29,8 @@ public class DFBnB_algo extends heuristic_search_algo {
 	}
 
 	@Override
-	public String run() {
-		long startTime = System.nanoTime();
+	public void run() {
+		StartTime = System.nanoTime();
 		openlist.put(start.toString(), start);
 		stack.push(start);
 		t= Integer.MAX_VALUE;
@@ -66,8 +66,9 @@ public class DFBnB_algo extends heuristic_search_algo {
 					}
 					else if(g.equals(goal)) {
 						t=f(g);
-						result= path(g)+"\rNum : "+ColorTile.count+"\rCost: "+g.getCost()+"\rTime: "+
-								String.format("%.3f",(System.nanoTime()-startTime)*Math.pow(10, -9))+" seconds";
+						path= path(g);
+						count=ColorTile.count;
+						cost= g.getCost();	
 						PQ.clear();
 					}
 
@@ -81,7 +82,8 @@ public class DFBnB_algo extends heuristic_search_algo {
 				}
 			}
 		}
-		return result;
+		count=ColorTile.count;
+		saveToFile();
 	}
 
 

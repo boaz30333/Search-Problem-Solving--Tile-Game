@@ -1,15 +1,20 @@
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
-import javafx.collections.SetChangeListener;
+
 
 public abstract class search_algo {
 	tile goal;
 	tile start;
 	boolean withOpen;
 	boolean withTime;
-	String path;
+	String path="no path";
+	int count;
+	int cost;
+	long StartTime;
 	LinkedHashMap<String, tile> openlist= new LinkedHashMap<String, tile>();
 	public search_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
 		this.start=start;
@@ -38,6 +43,37 @@ public abstract class search_algo {
 		string.append("\n------------------------------------------------------------");
 		System.out.println(string);
 	}
-	public abstract String run(); 
+	public abstract void run(); 
+	public void saveToFile() {
+
+		String fileName = "output.txt";
+
+		try 
+		{
+			PrintWriter pw = new PrintWriter(new File(fileName));
+
+			StringBuilder sb = new StringBuilder();
+
+			sb.append(path);
+			sb.append("\n");
+			sb.append("Num: "+count);
+			if(!path.equals("no path")) {
+				sb.append("\n");
+				sb.append("Cost: "+cost);
+			}
+			if(withTime) {
+				sb.append("\n");
+				sb.append(String.format("%.3f",(System.nanoTime()-StartTime)*Math.pow(10, -9))+" seconds");
+			}
+
+			pw.write(sb.toString());
+			pw.close();
+		} 
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+			return;
+		}
+	}
 
 }

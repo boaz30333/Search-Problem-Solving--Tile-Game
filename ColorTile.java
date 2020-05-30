@@ -5,28 +5,28 @@ import java.util.Vector;
 import javafx.geometry.Point2D;
 
 public class ColorTile implements tile {
-    private Board board;
-    private int cost=0; // how much cost to develop this state
+	private Board board;
+	private int cost=0; // how much cost to develop this state
 	private tile parent=null;
 	private String num_op;
 	public boolean _isVisited=false;
 	private int time;
 	public static int count=0;
 	public ColorTile(Board board,int cost,tile parent, String num_op) {
-        this.board=board;
+		this.board=board;
 		this.cost=cost;
 		this.parent=parent;
 		this.num_op=num_op;
 		this._isVisited=false;
 		count++;
 		time=count;
-    } 
-public int getTime() {
-	return time;
-}
+	} 
+	public int getTime() {
+		return time;
+	}
 	public Point2D getFree(){
-        return board.empty_space;
-    }
+		return board.empty_space;
+	}
 
 
 
@@ -50,9 +50,9 @@ public int getTime() {
 
 
 	public String toString() {
-		       // Loop through all rows 
+		// Loop through all rows 
 		return this.board.toString();
-				   
+
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public int getTime() {
 
 	@Override
 	public tile copy() {
-		
+
 		return new ColorTile(this.board.copy(),this.cost,this.parent,this.num_op);
 	}
 
@@ -108,7 +108,7 @@ public int getTime() {
 	@Override
 	public void visit() {
 		_isVisited=true;
-		
+
 	}
 
 	@Override
@@ -116,12 +116,12 @@ public int getTime() {
 		int x =(int) this.board.getEmpty().getX();
 		int y = (int) this.board.getEmpty().getY();
 		// TODO Auto-generated method stub
-		 if(direction==1) {
+		if(direction==1) {
 			if(x==board.mat[0].length-1||this.board.color_cell.get(this.getBoard().mat[y][x+1])==Color.BLACK||this.getNumOp().contains("R")) return null;
 			return move(x,y,x+1,y,"L");
 		} 
-		 else if(direction==2)	{
-			 if(y==board.mat.length-1||this.board.color_cell.get(this.getBoard().mat[y+1][x])==Color.BLACK||this.getNumOp().contains("D")) return null;
+		else if(direction==2)	{
+			if(y==board.mat.length-1||this.board.color_cell.get(this.getBoard().mat[y+1][x])==Color.BLACK||this.getNumOp().contains("D")) return null;
 			return move(x,y,x,y+1,"U");
 		}
 		else if(direction==3) {
@@ -150,6 +150,6 @@ public int getTime() {
 
 
 
-    
-     
+
+
 }

@@ -51,24 +51,24 @@ public class Board{
 		}
 		return string.toString();
 	}
-/**
- * 
- * @param board A String represent a board with 3 colors
- * 3x4 - line 0 - size of the board
+	/**
+	 * 
+	 * @param board A String represent a board with 3 colors
+	 * 3x4 - line 0 - size of the board
 Black:   line 1 - the pieces in black color
 Red: 11  line 2 - the pieces in red color
 1,2,3,4  the arrange of the board where '-' is the empty cell
 5,6,11,7
 9,10,8,_
- * @throws Exception if the input not satisfy the requirements
- */
+	 * @throws Exception if the input not satisfy the requirements
+	 */
 	public Board(String board) throws Exception {
 		if(board==null||board.length()<4) throw new Exception("cant build board from string");
 		String[] line = board.split(System.getProperty("line.separator"));
 		int i=0;
 		int n=Integer.parseInt(""+line[i].charAt(0));
 		int m = Integer.parseInt(""+line[i].charAt(2));
-///////////////////////////////////////////////////////////line 1
+		///////////////////////////////////////////////////////////line 1
 		i++;
 		String[] Black=line[i].replaceAll("\\s", "").substring(6).split(",");
 		for(int j=0;j<Black.length;j++) {
