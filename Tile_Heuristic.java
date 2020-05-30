@@ -1,5 +1,5 @@
 
-public class Tile_Heuristic_Functions {
+public class Tile_Heuristic {
 	public static int Manethen_Distance(tile t) {
 		int sum = 0;
 		int right_row;

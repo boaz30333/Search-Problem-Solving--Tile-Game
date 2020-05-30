@@ -7,4 +7,7 @@ public abstract class heuristic_search_algo extends search_algo{
 		// TODO Auto-generated constructor stub
 	}
 	public abstract int heuristic(tile t);
+	public int f(tile t) {
+		return(t.getCost()+heuristic(t));
+	}
 }

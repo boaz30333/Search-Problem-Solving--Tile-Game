@@ -6,7 +6,9 @@ public class A_star_algo extends heuristic_search_algo {
 PriorityQueue<tile> PQ= new PriorityQueue<>(new Comparator<tile>() {
 	@Override
 	public int compare(tile arg0, tile arg1) {
-		return (heuristic(arg0)+arg0.getCost())-(heuristic(arg1)+arg1.getCost());
+		int x= (heuristic(arg0)+arg0.getCost())-(heuristic(arg1)+arg1.getCost());
+		if(x!=0) return x;
+		else return arg0.getTime()-arg1.getTime();
 	}
 });
 HashMap<String, tile> CloseList= new HashMap<>();
@@ -16,7 +18,7 @@ HashMap<String, tile> CloseList= new HashMap<>();
 
 	@Override
 	public int heuristic(tile t) {
-		return Tile_Heuristic_Functions.Manethen_Distance(t);
+		return Tile_Heuristic.Manethen_Distance(t);
 	}
 
 	@Override

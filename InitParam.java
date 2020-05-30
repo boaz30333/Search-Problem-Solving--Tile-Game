@@ -72,7 +72,7 @@ public class InitParam
 			algo = new DFID_algo(start, goal, with_open, with_time);
 			break;
 		case "DFBnB":
-			// code block
+			algo = new DFBnB_algo(start, goal, with_open, with_time);
 			break;
 		case "A*":
 			algo = new A_star_algo(start, goal, with_open, with_time);

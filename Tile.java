@@ -11,7 +11,7 @@ public interface tile {
 
 public boolean isVisited();
 	public int getCost();
-
+	public int getTime();
 	public void setCost(int b);
 
 	public Board getBoard();

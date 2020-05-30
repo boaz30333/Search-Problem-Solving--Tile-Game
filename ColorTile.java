@@ -10,6 +10,7 @@ public class ColorTile implements tile {
 	private tile parent=null;
 	private String num_op;
 	public boolean _isVisited=false;
+	private int time;
 	public static int count=0;
 	public ColorTile(Board board,int cost,tile parent, String num_op) {
         this.board=board;
@@ -18,8 +19,11 @@ public class ColorTile implements tile {
 		this.num_op=num_op;
 		this._isVisited=false;
 		count++;
+		time=count;
     } 
-
+public int getTime() {
+	return time;
+}
 	public Point2D getFree(){
         return board.empty_space;
     }

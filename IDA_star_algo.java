@@ -12,7 +12,7 @@ public class IDA_star_algo extends heuristic_search_algo {
 	@Override
 	public int heuristic(tile t) {
 		// TODO Auto-generated method stub
-		return Tile_Heuristic_Functions.Manethen_Distance(t);
+		return Tile_Heuristic.Manethen_Distance(t);
 	}
 
 	@Override
@@ -24,13 +24,13 @@ public class IDA_star_algo extends heuristic_search_algo {
 		while(t!=Integer.MAX_VALUE) {
 			minF= Integer.MAX_VALUE;
 			openlist.put(start.toString(), start);
-			stack.add(start);
+			stack.push(start);
 			while(!stack.isEmpty()) {
 				tile n=stack.pop();
 				if(n.isVisited()) openlist.remove(n.toString());
 				else {
 					n.visit();
-					stack.add(n);
+					stack.push(n);
 					for(int i=1;i<5;i++) {
 						tile child= n.move(i);
 						if(child!=null) {
@@ -50,7 +50,7 @@ public class IDA_star_algo extends heuristic_search_algo {
 							if(child.equals(goal)) return path(child)+"\rNum : "+ColorTile.count+"\rCost: "+child.getCost()+"\rTime: "+
 									String.format("%.3f",(System.nanoTime()-startTime)*Math.pow(10, -9))+" seconds";;
 							openlist.put(child.toString(), child);
-							stack.add(child);
+							stack.push(child);
 						}
 					}
 
