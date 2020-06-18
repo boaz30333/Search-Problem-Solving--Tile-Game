@@ -5,7 +5,12 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 
-
+/**
+ * 
+ * @author Boaz Sharabi
+ *
+ *
+ */
 public abstract class search_algo {
 	tile goal;
 	tile start;

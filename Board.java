@@ -1,7 +1,12 @@
+import java.awt.geom.Point2D;
 import java.util.HashMap;
 
-import javafx.geometry.Point2D;
 
+/**
+ * 
+ * @author Boaz Sharabi
+ *
+ */
 public class Board{
 	int[][] mat;
 	HashMap<Integer, Color> color_cell = new HashMap<>();
@@ -23,7 +28,7 @@ public class Board{
 				}
 			}
 		}
-		return new Board(arrange_board,new Point2D(arrange_board.length-1,arrange_board[0].length-1),this.color_cell );
+		return new Board(arrange_board,new Point2D.Double(arrange_board.length-1,arrange_board[0].length-1),this.color_cell );
 	}
 	public Board copy() {
 		int[][] newmat = new int[mat.length][mat[0].length] ;
@@ -32,7 +37,7 @@ public class Board{
 				newmat[i][j]= mat[i][j];
 			}
 		}
-		return new Board(newmat,new Point2D(this.empty_space.getX(),this.empty_space.getY()),this.color_cell);
+		return new Board(newmat,new Point2D.Double(this.empty_space.getX(),this.empty_space.getY()),this.color_cell);
 	}
 	public Point2D getEmpty() {
 		return this.empty_space;
@@ -92,7 +97,7 @@ Red: 11  line 2 - the pieces in red color
 				if(rowOrder[k].equals("_")) {
 					mat[j][k]= -1;
 					color_cell.put(-1, Color.EMPTY);
-					empty_space= new Point2D(k,j);
+					empty_space= new Point2D.Double(k,j);
 				}
 				else {
 					int num= Integer.parseInt(""+rowOrder[k]);

@@ -1,16 +1,14 @@
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
+/**
+ * 
+ * @author Boaz Sharabi
+ *
+ *	This class represent A* search algo
+ */
 public class A_star_algo extends heuristic_search_algo {
-	PriorityQueue<tile> PQ= new PriorityQueue<>(new Comparator<tile>() {
-		@Override
-		public int compare(tile arg0, tile arg1) {
-			int x= (f(arg0)-f(arg1));
-			if(x!=0) return x;
-			else return arg0.getTime()-arg1.getTime();
-		}
-	});
+	PriorityQueue<tile> PQ= new PriorityQueue<>(get_tile_comperator());
 	HashMap<String, tile> CloseList= new HashMap<>();
 	public A_star_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
 		super(start, goal, withOpen, withTime);
@@ -33,6 +31,7 @@ public class A_star_algo extends heuristic_search_algo {
 				count=ColorTile.count;
 				cost =lower.getCost();
 				saveToFile();
+				return;
 			}
 			openlist.remove(lower.toString());
 			CloseList.put(lower.toString(), lower);

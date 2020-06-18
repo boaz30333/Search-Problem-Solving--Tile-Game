@@ -1,13 +1,13 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import com.sun.org.omg.CORBA.ParDescriptionSeqHelper;
-
-import javafx.geometry.Point2D;
-
-public class InitParam
+/**
+ * 
+ * @author Boaz Sharabi
+ *
+ */
+public class Ex1
 {
 	public static boolean with_time=false;
 	public static boolean with_open=false;
@@ -15,7 +15,7 @@ public class InitParam
 	public static tile start;
 	public static tile goal;
 	public static void main(String[] args) throws Exception {
-		String[] info = new String[6]; // 1 = algo 2 = with time| 3 = opoen list| 4= size of board | 5= black |6=red 
+		String[] info = new String[3]; // 1 = algo 2 = with time| 3 = opoen list| 4= size of board | 5= black |6=red 
 		BufferedReader br = null;
 		String board="";
 		try 

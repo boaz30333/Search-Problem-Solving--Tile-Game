@@ -1,4 +1,11 @@
 
+
+/**
+ * 
+ * @author Boaz Sharabi
+ *
+ *This class represent DFID search algo
+ */
 public class DFID_algo extends search_algo{
 	String result="";
 	int depth=1;
@@ -6,14 +13,13 @@ public class DFID_algo extends search_algo{
 	public DFID_algo(tile start, tile goal, boolean withOpen, boolean withTime) {
 		super(start, goal, withOpen, withTime);
 	}
-
-
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		StartTime = System.nanoTime();
-		while(depth<6) {
+		while(true) {
 			openlist.clear();
+			start.markNoVisit();
 			result= Limited_DFS(start,goal,depth);
 			if(!result.equals("cutoff")&&!result.equals("fail")) {
 				saveToFile();

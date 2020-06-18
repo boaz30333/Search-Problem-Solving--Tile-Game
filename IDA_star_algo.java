@@ -1,5 +1,10 @@
 import java.util.Stack;
 
+/**
+ * 
+ * @author Boaz Sharabi
+ *This class represent IDA* search algo
+ */
 public class IDA_star_algo extends heuristic_search_algo {
 	Stack<tile> stack= new Stack<>();
 	int t=0;
@@ -52,6 +57,7 @@ public class IDA_star_algo extends heuristic_search_algo {
 								count=ColorTile.count;
 								cost =child.getCost();
 								saveToFile();
+								return;
 
 							}
 							openlist.put(child.toString(), child);
@@ -62,7 +68,7 @@ public class IDA_star_algo extends heuristic_search_algo {
 				}
 			}
 			t=minF;
-
+			start.markNoVisit();
 		}
 		count=ColorTile.count;
 		saveToFile();

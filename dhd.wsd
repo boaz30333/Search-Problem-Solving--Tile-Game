@@ -1,4 +1,0 @@
-@startuml rfrf
-A -> B : HELLO
-
-@enduml

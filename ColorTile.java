@@ -1,9 +1,11 @@
+import java.awt.geom.Point2D;
 
-import java.util.List;
-import java.util.Vector;
 
-import javafx.geometry.Point2D;
-
+/**
+ * 
+ * @author Boaz Sharabi
+ *
+ */
 public class ColorTile implements tile {
 	private Board board;
 	private int cost=0; // how much cost to develop this state
@@ -27,9 +29,6 @@ public class ColorTile implements tile {
 	public Point2D getFree(){
 		return board.empty_space;
 	}
-
-
-
 	@Override
 	public Board getBoard() {
 		// TODO Auto-generated method stub
@@ -47,19 +46,14 @@ public class ColorTile implements tile {
 		// TODO Auto-generated method stub
 		this.cost=cost;
 	}
-
-
 	public String toString() {
 		// Loop through all rows 
 		return this.board.toString();
-
 	}
-
 	@Override
 	public tile getParent() {
 		return this.parent;
 	}
-
 	public tile move(int x_src,int y_src,int x_dest,int y_dest, String direction ) {
 		tile newTile=this.copy();
 		newTile.getBoard().mat[y_src][x_src]=newTile.getBoard().mat[y_dest][x_dest];
@@ -69,24 +63,19 @@ public class ColorTile implements tile {
 			cost=30;
 		newTile.setCost(cost+this.getCost());
 		newTile.setNumOp(newTile.getBoard().mat[y_src][x_src]+direction);
-		newTile.getBoard().setEmpty(new Point2D(x_dest, y_dest));
+		newTile.getBoard().setEmpty(new Point2D.Double(x_dest, y_dest));
 		newTile.setParent(this);
 		return newTile;
 	}
-
-
-
 	@Override
 	public tile copy() {
 
 		return new ColorTile(this.board.copy(),this.cost,this.parent,this.num_op);
 	}
-
 	@Override
 	public boolean equals(Object b) {
 		return (b instanceof tile )&&b.toString().equals(this.toString());
 	}
-
 	@Override
 	public String getNumOp() {
 		// TODO Auto-generated method stub
@@ -98,7 +87,6 @@ public class ColorTile implements tile {
 		// TODO Auto-generated method stub
 		return new ColorTile(this.board.getArranged(), 0, null, "");
 	}
-
 	@Override
 	public boolean isVisited() {
 		// TODO Auto-generated method stub
@@ -132,8 +120,6 @@ public class ColorTile implements tile {
 			if(y==0||this.board.color_cell.get(this.getBoard().mat[y-1][x])==Color.BLACK||this.getNumOp().contains("U")) return null;
 			return move(x,y,x,y-1,"D");
 		}
-
-
 	}
 
 	@Override
@@ -147,9 +133,8 @@ public class ColorTile implements tile {
 		// TODO Auto-generated method stub
 		this.parent=parent;
 	}
-
-
-
-
-
+	@Override
+	public void markNoVisit() {
+		this._isVisited=false;
+	}
 }
