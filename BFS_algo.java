@@ -8,42 +8,62 @@ import java.util.Queue;
  * @author Boaz Sharabi
  *
  *This class represent BFS search algo
+ *https://en.wikipedia.org/wiki/Breadth-first_search
  */
 public class BFS_algo extends search_algo{
-	HashMap<String, tile> closelist= new HashMap<>();
-	LinkedHashMap<String, tile> frontier= openlist;
-	Queue<tile> b= new LinkedList<>();
+	HashMap<String, tile> closelist= new HashMap<>();  // make closelist
+	LinkedHashMap<String, tile> frontier= openlist;   // make frontier
+	Queue<tile> queue= new LinkedList<>();            // queue
 	public BFS_algo(tile start, tile goal, boolean with_open, boolean with_time) {
 		super(start,goal,with_open,with_time);
 	}
 	@Override
 	public void run() {
-		StartTime = System.nanoTime();
-		frontier.put(start.toString(),start);
-		b.add(start);
-		tile n=null;
-		while(!b.isEmpty()) {
-			System.out.println(ColorTile.count);
-			 n= b.poll();
-			frontier.remove(n.toString());
-			closelist.put(n.toString(), n);
-			for(int i=1;i<5;i++) {
-				tile child= n.move(i);
-				if(child!=null&&!closelist.containsKey(child.toString())&&!frontier.containsKey(child.toString())) {
-					if(child.equals(goal)) {
+
+		StartTime = System.nanoTime();  
+		if(!checkValid(start)) {
+			saveToFile();
+			return;
+		}
+		// make queue and hashmap (frontier) with initial tile
+
+		frontier.put(start.getKey(),start);    
+		queue.add(start);                        
+		tile state=null; 
+		while(!queue.isEmpty()) {
+			//			if(ColorTilePuzzle.count>8000000) System.out.println(false);
+			// print openlist to console if needed
+			if(withOpen) PrintOpenList();
+			// state = queue.remove_front , remove state from frontier and insert to closelist
+			state= queue.poll();
+			frontier.remove(state.getKey());
+			closelist.put(state.getKey(), state);
+
+			//for each allowed operator on state do: {
+			for(int i=1;i<5;i++) {                   
+				tile child= state.move(i);				// child= legal_operator(state) or null
+
+				// if child is legal_operator(state) and not in frontier and not in closelist
+				if(child!=null&&!closelist.containsKey(child.getKey())&&!frontier.containsKey(child.getKey())) { 
+
+					// if child tile is the goal child return child as solution
+					if(child.equals(goal)) {	
 						path=path(child);
-						count=ColorTile.count;
 						cost =child.getCost();
 						saveToFile();
 						return;
 					}
-					frontier.put(child.toString(), child);
-					b.add(child);
-					if(withOpen)PrintOpenList();
-				}
+
+					// if child isnt the goal tile - add tile to frontier and to queue
+					frontier.put(child.getKey(), child); 
+					queue.add(child);
+
+
+				}                                                                  
+				//end  for each allowed operator }
 			}
 		}
-		count=ColorTile.count;
+		// there is no solution - check how much tiles  generated and return "no path"
 		saveToFile();
 	}
 

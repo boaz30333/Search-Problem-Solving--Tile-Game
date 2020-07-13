@@ -18,7 +18,7 @@ public class Ex1
 		String[] info = new String[3]; // 1 = algo 2 = with time| 3 = opoen list| 4= size of board | 5= black |6=red 
 		BufferedReader br = null;
 		String board="";
-		try 
+		try
 		{
 			br = new BufferedReader(new FileReader("input.txt"));
 			int i=0;
@@ -45,7 +45,13 @@ public class Ex1
 
 		algo.run();
 	}
+/**
+ * 
+ * @param algorithm name
+ * @return  search_algo class according to algorithm name 
+ * @throws Exception if there is no algorithm in this name
 
+ */
 	public static search_algo initAlgo(String algorithm) throws Exception {
 		switch(algorithm) {
 		case "BFS":
@@ -65,6 +71,12 @@ public class Ex1
 		}
 
 	}
+	/**
+	 * 
+	 * @param string "with time" - to include running time in output file,  "no time" - to exclude running time Exclude running time
+	 * @return true if "with time"  , false if "no time"
+	 * @throws Exception otherwise
+	 */
 	public static boolean initWithTime(String time) throws Exception {
 		switch(time) {
 		case "with time":
@@ -79,6 +91,12 @@ public class Ex1
 
 
 	}
+	/**
+	 * 
+	 * @param open - String  "with open" / "no open"
+	 * @return true if  "with open" , false if "no open"
+	 * @throws Exception otherwise
+	 */
 	public static boolean initWithOpen(String open) throws Exception {
 		switch(open) {
 		case "with open":
@@ -92,7 +110,7 @@ public class Ex1
 
 	}
 	public static tile InitStart(String board) throws Exception {
-		return new ColorTile(new Board(board),0,null,"");  // build start and goal state's tile
+		return new ColorTilePuzzle(new Board(board),0,null,"");  // build start and goal state's tile
 	}
 
 
